@@ -2,10 +2,35 @@
 
 **The official Home Assistant integration for monitoring and controlling IoT coffee machines via Cremalink.**
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmiditkl%2Fcremalink-ha)
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?category=integration&repository=cremalink-ha&owner=miditkl)
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fdr-duke%2Fcremalink-ha)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?category=integration&repository=cremalink-ha&owner=dr-duke)
 [![License](https://img.shields.io/github/license/miditkl/cremalink-ha?style=for-the-badge&color=success)](LICENSE)
 [![Source Code](https://img.shields.io/badge/Source-GitHub-black?style=for-the-badge&logo=github)](https://github.com/miditkl/cremalink-ha)
+
+---
+
+> ### About this fork
+>
+> Upstream's integration failed to load in Home Assistant:
+>
+> ```
+> Error occurred loading flow for integration cremalink_ha:
+> cannot import name 'collapse_excgroups' from 'starlette._utils'
+> ```
+>
+> Its requirement pulls cremalink's full runtime set — `fastapi`, `uvicorn`, `starlette`,
+> `pytest`, `ipykernel` — into the Home Assistant environment, where it shuffles versions of
+> packages the integration never imports. (`collapse_excgroups` exists in starlette 0.52.x and
+> not in 1.x, so the installed tree had ended up straddling both.) The integration is only an
+> HTTP client of the add-on and needs none of that stack.
+>
+> This fork points both the integration and the add-on at a build of
+> [cremalink](https://github.com/dr-duke/cremalink) that keeps the server stack in a `server`
+> extra. The integration then installs `requests` and `pycryptodome` and nothing else; the
+> add-on asks for `cremalink[server]` and gets the full set as before.
+>
+> Nothing else is changed. Verified on a De'Longhi PrimaDonna Soul ECAM610.75 over the local
+> transport: setup completes and the entities track and drive the machine.
 
 ---
 

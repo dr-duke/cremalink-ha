@@ -10,7 +10,7 @@
   "iot_class": "local_polling",
   "config_flow": true,
   "requirements": [
-    "cremalink @ https://github.com/dr-duke/cremalink/archive/2db02cbac0c1ba2eeafe5ae57886f7410ce77546.zip"
+    "cremalink @ https://github.com/dr-duke/cremalink/archive/8529ef7ae416288e80944d08df4eabadc9fd028c.zip"
   ],
   "issue_tracker": "https://github.com/dr-duke/cremalink-ha/issues",
   "version": "v0.1.0b29",
